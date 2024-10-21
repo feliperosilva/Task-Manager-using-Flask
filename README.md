@@ -6,4 +6,4 @@ In this web app you will be able to:
 2. Modify a task as done/undone
 3. Eliminate a task
 
-All tasks will be store in a database. It was used sqlite3 for this project.
+All tasks will be stored in a database. It was used sqlite3 for this project.
