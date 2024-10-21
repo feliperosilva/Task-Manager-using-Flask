@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>App Gestor de Tarefas</title>
+    <!-- Bootswatch Sketchy -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootswatch@4.5.2/dist/sketchy/bootstrap.min.css" integrity="sha384-RxqHG2ilm4r6aFRpGmBbGTjsqwfqHOKy1ArsMhHusnRO47jcGqpIQqlQK/kmGy9R" crossorigin="anonymous">
+    <!-- Google Font - Permanent Marker -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.2/css/fontawesome.min.css" integrity="sha384-BY+fdrpOd3gfeRvTSMT+VUZmA728cfF9Z2G42xpaRkUGu2i3DyzpTURDo5A6CaLK" crossorigin="anonymous">
+    <!-- link main.css -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}">
+</head>
+<body>
+    <main class="container p-4"> <!-- classe(4) que proporciona o Bootstrap (documentação) -->
+        <h1 class="display-4 text-center mt-4 title">App de Gestão de Tarefas</h1>
+        <div class="row">
+            <div class="col-md-4 offset-md-4 my-auto"> <!-- div para centralizar cartão, ocupa 4 colunas -->
+                <div class="card"> <!-- criação do objeto card -->
+                    <div class="card-header">
+                        <form , action="/criar-tarefa" method="post"> <!-- Dados enviados para a rota criada em app.py -->
+                            <div class="form-group"> <!-- input inserido neste form group separado do botão, para que haja espaço entre eles -->
+                                <input type="text" name="conteudo_tarefa" placeholder="Tarefa" class="form-control" autofocus>
+                            </div>
+                            <button type="submit" class="btn btn-primary btn-block"> <!-- btn-block faz com que o botão ocupe TODA A LARGURA -->
+                                Guardar
+                            </button>
+                        </form>
+                    </div>
+                    <div class="card-body">
+                        <!-- As etiquetas <ul> e <li> servem para criar listas em HTML -->
+                        <ul class="list-group">
+                            {% for tarefa in lista_de_tarefas %}<!-- Com a Jinja introduzimos código Python no nosso HTML e o Python encarrega-se de executá-lo e interpretá-lo -->
+                            <li class="list-group-item">
+                                <span class="{% if tarefa.concluida==true %} tarefa-concluida {% endif %}"> {{tarefa.conteudo}} </span> <!-- conteudo é a variavel da classe Tarefa que armazena os textos das tarefas-->
+                                <a href="/tarefa-concluida/{{tarefa.id}}" style="text-decoration:none">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="green" class="bi bi-check2-circle" viewBox="0 0 16 16"> <!-- Pode mudar tamanho e cor -->
+                                        <path d="M2.5 8a5.5 5.5 0 0 1 8.25-4.764.5.5 0 0 0 .5-.866A6.5 6.5 0 1 0 14.5 8a.5.5 0 0 0-1 0 5.5 5.5 0 1 1-11 0"/>
+                                        <path d="M15.354 3.354a.5.5 0 0 0-.708-.708L8 9.293 5.354 6.646a.5.5 0 1 0-.708.708l3 3a.5.5 0 0 0 .708 0z"/>
+                                    </svg>
+                                </a>
+                                <a href="/eliminar-tarefa/{{tarefa.id}}" style="text-decoration:none"> <!-- mostra qual direção ir ao clicar no icone -->
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="red" class="bi bi-trash3" viewBox="0 0 16 16">
+                                        <path d="M6.5 1h3a.5.5 0 0 1 .5.5v1H6v-1a.5.5 0 0 1 .5-.5M11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3A1.5 1.5 0 0 0 5 1.5v1H1.5a.5.5 0 0 0 0 1h.538l.853 10.66A2 2 0 0 0 4.885 16h6.23a2 2 0 0 0 1.994-1.84l.853-10.66h.538a.5.5 0 0 0 0-1zm1.958 1-.846 10.58a1 1 0 0 1-.997.92h-6.23a1 1 0 0 1-.997-.92L3.042 3.5zm-7.487 1a.5.5 0 0 1 .528.47l.5 8.5a.5.5 0 0 1-.998.06L5 5.03a.5.5 0 0 1 .47-.53Zm5.058 0a.5.5 0 0 1 .47.53l-.5 8.5a.5.5 0 1 1-.998-.06l.5-8.5a.5.5 0 0 1 .528-.47M8 4.5a.5.5 0 0 1 .5.5v8.5a.5.5 0 0 1-1 0V5a.5.5 0 0 1 .5-.5"/>
+                                    </svg>
+                                </a>
+                            </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </main>
+</body>
+</html>
